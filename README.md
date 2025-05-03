@@ -53,10 +53,10 @@ pip3 install requests pycryptodome
 ```bash
 # Activate virtual environment
 Set-ExecutionPolicy -Scope Process Bypass
-& "C:\Users\itsgeorge\Dev\pyenv31013\Scripts\Activate.ps1"
+& "C:\Users\user\Dev\pyenv31013\Scripts\Activate.ps1"
 
 # Launch Flask server
-& "C:\Users\itsgeorge\Dev\PCbuild\amd64\python.exe" listener_https.py
+& "C:\Users\user\Dev\PCbuild\amd64\python.exe" listener_https.py
 ```
 
 Server will run on:
