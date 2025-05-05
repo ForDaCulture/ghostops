@@ -2,7 +2,7 @@
 # 🛡️ GhostOps Red Team Lab: `loot_drop.py` Encrypted Exfiltration
 
 Welcome to the GhostOps portfolio lab — a hands-on red team operation that simulates encrypted data exfiltration using custom AES encryption and HTTPS delivery via Flask. This lab demonstrates post-exploitation tactics ideal for adversary emulation and threat simulation.
-
+Note: Created on a hardened system, custom Python install, you may need to adjust your commands.
 ---
 
 ## 🚀 Project Summary
