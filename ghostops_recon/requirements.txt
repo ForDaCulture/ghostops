@@ -1,0 +1,6 @@
+python-whois
+dnspython
+aiohttp
+requests
+python-dotenv
+streamlit
