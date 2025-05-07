@@ -1,108 +1,145 @@
 # 🕵️‍♂️ GhostOps — Cybersecurity Recon, Exploitation & Detection Toolkit
 
-A monorepo containing three powerful offensive and defensive cybersecurity tools, developed to simulate real-world adversary operations, defend networks, and perform intelligent recon at scale.
+A monorepo containing four powerful offensive and defensive cybersecurity tools, developed to simulate real‑world adversary operations, defend networks, and perform intelligent reconnaissance at scale.
 
 ---
 
 ## 🧩 Projects Overview
 
-| Project                | Description                                                                 |
-|------------------------|-----------------------------------------------------------------------------|
-| 🧠 **GhostOps Recon**        | Automated OSINT + Attack Surface Mapping (CLI + CVE Intelligence)         |
-| 🔥 **GhostOps Red Team Lab** | Encrypted Reverse Shell & AES Data Exfiltration                          |
-| 👁️ **SpecterOps Sentinel**   | Machine Learning-Based Network Anomaly Detection with Live Packet Scoring |
+| Icon | Project                     | Description                                                                 |
+|:----:|-----------------------------|-----------------------------------------------------------------------------|
+| 🧠   | **GhostOps Recon**          | Automated OSINT & Attack Surface Mapping (CLI + CVE Intelligence)           |
+| 🔥   | **GhostOps Red Team Lab**   | Encrypted Reverse Shell & AES Data Exfiltration                             |
+| 👁️   | **SpecterOps Sentinel**     | ML‑Based Network Anomaly Detection with Live Packet Scoring                 |
+| 🛡️   | **GhostOps HoneyGuard**     | Low‑Interaction, ML‑Enhanced Honeypot for Attacker Behavior Logging & Alerting |
 
 ---
 
 ## 🚀 GhostOps Recon
 
-**Purpose:** Pre-exploitation intelligence and vulnerability detection
+**Purpose:** Pre‑exploitation intelligence and vulnerability detection
 
 **What It Does:**
-- WHOIS & DNS recon
-- Subdomain brute-forcing
-- Async TCP port scanning with banner grabbing
-- Tech fingerprinting from HTTP headers and favicon hashes
-- Real-time CVE matching using the NVD API
-- Integration with Sentinel for CVE-tagged anomalies
-- Streamlit dashboard for visual analysis
+- WHOIS & DNS reconnaissance  
+- Subdomain brute‑forcing  
+- Asynchronous TCP port scanning with banner grabbing  
+- Tech fingerprinting via HTTP headers & favicon hashes  
+- Real‑time CVE matching using the NVD API  
+- Integration with Sentinel for CVE‑tagged anomalies  
+- Streamlit dashboard for visual analysis  
 
 **Workflow:**
-
-```text
 Targets → Recon Orchestrator →
-    ├─ Domain Mapping (WHOIS/DNS/Subdomains)
-    ├─ Port Scanning (async)
-    ├─ Tech Profiler (Headers + Favicon)
-    ├─ CVE Correlation (NVD API)
-    └─ JSON Reports + Streamlit Dashboard
-📁 See ghostops_recon/README.md
+├─ Domain Mapping (WHOIS/DNS/Subdomains)
+├─ Port Scanning (async)
+├─ Tech Profiler (Headers + Favicon)
+├─ CVE Correlation (NVD API)
+└─ JSON Reports + Streamlit Dashboard
 
-🔥 GhostOps Red Team Lab
-Purpose: Simulate post-exploitation behavior with encrypted exfiltration
+📁 See [`ghostops_recon/README.md`](ghostops_recon/README.md)
 
-What It Does:
+---
 
-AES-256 CBC encrypted data exfiltration via HTTPS POST
+## 🔥 GhostOps Red Team Lab
 
-Reverse shell payload delivered to hardened Flask listener
+**Purpose:** Simulate post‑exploitation behavior with encrypted exfiltration
 
-Self-signed cert TLS support
+**What It Does:**
+- AES‑256 CBC encrypted data exfiltration via HTTPS POST  
+- Reverse‑shell payload delivered to a hardened Flask listener  
+- Self‑signed certificate TLS support  
+- Designed to emulate real‑world adversary tradecraft  
 
-Built for emulating real-world threat actor tradecraft
-
-Workflow:
-
+**Workflow:**
 Target (Kali) →
-    loot_drop.py (AES-CBC Encrypt & Exfil via POST) →
-        listener_https.py (Flask listener on Windows Hardened VM) →
-            Decrypt & Store Exfiltrated Data
-📁 See redteam/README.md
+loot_drop.py (AES‑CBC Encrypt & Exfil via POST) →
+listener_https.py (Flask listener on Windows Hardened VM) →
+Decrypt & Store Exfiltrated Data
 
-👁️ SpecterOps Sentinel
-Purpose: Defend networks with intelligent ML-based packet anomaly detection
+📁 See [`redteam/README.md`](redteam/README.md)
 
-What It Does:
+---
 
-Trains Isolation Forest model on PCAPs
+## 👁️ SpecterOps Sentinel
 
-Scores live/replayed packet streams for anomalies
+**Purpose:** Defend networks with intelligent ML‑based packet anomaly detection
 
-Feature-rich pipeline:
+**What It Does:**
+- Trains an Isolation Forest on PCAPs  
+- Scores live or replayed network streams for anomalies  
+- Feature pipeline: entropy, TTL, ports, TCP flags, IAT, direction  
+- Flags suspicious flows and optionally enriches with Recon CVEs  
 
-Entropy, TTL, ports, TCP flags, IAT, direction
-
-Flags suspicious flows, integrates with GhostOps Recon CVEs
-
-Workflow:
+**Workflow:**
 PCAP or Live Interface →
-    Feature Extraction →
-        Train Model →
-            Evaluate (ROC/AUC + cutoff tuning) →
-                Live Detection (sniffer or replay) →
-                    Output anomalies → Optional CVE enrichment
-📁 See SpecterOps_Sentinel/README.md
+Feature Extraction →
+Train Model →
+Evaluate (ROC/AUC + cutoff tuning) →
+Live Detection (sniffer or replay) →
+Output anomalies → Optional CVE enrichment
 
-🧰 Install & Use
-Each project is self-contained and installable:
+📁 See [`SpecterOps_Sentinel/README.md`](SpecterOps_Sentinel/README.md)
 
-bash
-Copy
-Edit
-cd ghostops_recon && pip install .
+---
+
+## 🛡️ GhostOps HoneyGuard
+
+**Purpose:** Actively lure attackers, log their behavior, and classify anomalous sessions
+
+**What It Does:**
+- **Service Emulation:** Fake SSH (22), HTTP (80/443), and MySQL (3306) listeners  
+- **Structured Logging:** Records connection start/end, banners, inputs, HTTP requests, MySQL auth packets in `logs/events.jsonl`  
+- **Feature Extraction:** Converts event logs to session metrics (`features.py`)  
+- **Anomaly Detection:** Trains an Isolation Forest on those features (`classifier.py`)  
+- **Session Classification:** Outputs `predictions.csv` with `anomaly_score` & `label`  
+- **Dashboard Integration:** View alerts alongside Recon & Sentinel in Streamlit  
+
+**Workflow:**
+Attacker → HoneyGuard Server →
+├─ Emulated Service Handlers (SSH, HTTP, MySQL)
+├─ Async Logging (logger.py → events.jsonl)
+├─ Feature Engineering (features.py → features.csv)
+├─ Model Training (classifier.py train → models/)
+└─ Prediction (classifier.py predict → predictions.csv)
+
+📁 See [`honeyguard/README.md`](honeyguard/README.md)
+
+---
+
+## 🧰 Install & Use
+
+Each sub‑project is self‑contained and installable:
+
+```bash
+# GhostOps Recon
+cd ghostops_recon && pip install . 
 ghostrecon scan example.com
-Or explore ML-based detection and encrypted post-exploitation in SpecterOps_Sentinel/ and redteam/.
 
+# GhostOps Red Team Lab
+cd redteam && pip install -r requirements.txt 
+python listener_https.py
+
+# SpecterOps Sentinel
+cd SpecterOps_Sentinel && pip install -r requirements.txt 
+python train_model.py
+
+# GhostOps HoneyGuard
+cd honeyguard && pip install -r requirements.txt
+python -m honeyguard.server
+Launch the unified Streamlit dashboard:
+
+cd dashboard
+streamlit run web_ui.py
 🧠 Why This Matters
-Together, these projects simulate the full red-blue spectrum of cybersecurity operations:
+Together, these tools simulate the full red‑blue spectrum of cybersecurity operations:
 
 🔎 Identify attack surface (GhostOps Recon)
 
-🚨 Trigger and investigate anomalies (SpecterOps Sentinel)
+🎯 Emulate adversary tradecraft (Red Team Lab & HoneyGuard)
 
-🎯 Emulate adversary behavior post-breach (GhostOps Red Team Lab)
+🚨 Detect and investigate anomalies (SpecterOps Sentinel)
 
-They are ideal for:
+Ideal for:
 
 Offensive security professionals
 
@@ -113,4 +150,4 @@ ML researchers in cybersecurity
 Advanced red team training
 
 📜 License
-This repo is licensed under the MIT License. See LICENSE.
+This repo is licensed under the MIT License. See LICENSE for details.
