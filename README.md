@@ -53,9 +53,6 @@ Built for emulating real-world threat actor tradecraft
 
 Workflow:
 
-text
-Copy
-Edit
 Target (Kali) →
     loot_drop.py (AES-CBC Encrypt & Exfil via POST) →
         listener_https.py (Flask listener on Windows Hardened VM) →
