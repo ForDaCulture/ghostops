@@ -1,0 +1,90 @@
+/* warning.css */
+
+#pps-warning-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 99999; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.pps-modal-content {
+    background-color: #fff1f0; /* Light red background */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 25px;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 550px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    color: #b91c1c; /* Dark red text */
+}
+
+.pps-modal-header {
+    font-size: 22px;
+    font-weight: bold;
+    color: #991b1b; /* Darker red for header */
+    margin-bottom: 15px;
+}
+
+#pps-findings-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #7f1d1d; /* Even darker red for details */
+}
+
+#pps-findings-list li {
+    margin-bottom: 8px;
+}
+
+.pps-footer {
+    font-size: 14px;
+    font-style: italic;
+    color: #991b1b;
+}
+
+.pps-button-container {
+    text-align: right;
+    margin-top: 25px;
+}
+
+.pps-btn {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.pps-btn:active {
+    transform: scale(0.98);
+}
+
+.pps-btn-cancel {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    margin-right: 10px;
+}
+
+.pps-btn-cancel:hover {
+    background-color: #fee2e2;
+}
+
+.pps-btn-proceed {
+    background-color: #dc2626;
+    color: white;
+}
+
+.pps-btn-proceed:hover {
+    background-color: #b91c1c;
+}
